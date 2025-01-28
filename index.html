@@ -68,7 +68,7 @@
         });
 
       async function getWeatherForecast(zipcode) {
-        const apiKey = config.MY_KEY;
+        const apiKey = 'YOUR_API_KEY'; //in config.js, not uploaded to github -- use weatherapi.com
         const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zipcode}&days=3`;
 
         try {
