@@ -69,7 +69,7 @@
 
       async function getWeatherForecast(zipcode) {
         const apiKey = 'YOUR_API_KEY'; //in config.js, not uploaded to github -- use weatherapi.com
-        const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zipcode}&days=3`;
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zipcode}&days=3`; //can go up to 14 day forecast, just replace '3' with desired number of days
 
         try {
           const response = await fetch(url);
