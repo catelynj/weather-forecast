@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3-Day Weather Forecast</title>
-    <script type="text/javascript" src="config.js"></script>
+    <script src="config.js"></script>
     <style>
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -47,6 +47,15 @@
         border:#1f2635 solid 1px;
         font-size: 20px;
       }
+      .forecastErrorInfo{
+        color:red;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 20px;
+      }
     </style>
   </head>
   <body>
@@ -54,58 +63,70 @@
     <form id="zipcodeForm">
       <label for="zipcode" style="padding-top: 8px">Enter Zipcode:</label>
       <input type="text" id="zipcode" name="zipcode" required />
-      <button type="submit">Get Forecast</button>
+      <button type="submit" id="btnSubmit">Get Forecast</button>
     </form>
     <div id="forecast" style="border:none"></div>
+    <div id="forecastError">
+      <strong class="forecastErrorInfo"></strong>
+    </div>
 
     <script>
-      document
-        .getElementById("zipcodeForm")
-        .addEventListener("submit", function (event) {
+
+      document.getElementById("zipcodeForm").addEventListener("submit", function (event) {
           event.preventDefault();
           const zipcode = document.getElementById("zipcode").value;
           getWeatherForecast(zipcode);
-        });
+      });
 
       async function getWeatherForecast(zipcode) {
-        const apiKey = 'YOUR_API_KEY'; //in config.js, not uploaded to github -- use weatherapi.com
-        const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zipcode}&days=3`; //can go up to 14 day forecast, just replace '3' with desired number of days
+        const apiKey = API_KEY;
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zipcode}&days=3`;
 
         try {
           const response = await fetch(url);
           const data = await response.json();
           displayForecast(data);
+          
         } catch (error) {
+          //API error message
           console.error("Error fetching weather data:", error);
+          const apiError = document.querySelector(".forecastErrorInfo");
+          apiError.innerText = 'Error fetching weather data. Try again later';
         }
       }
 
       function displayForecast(data) {
         const forecastDiv = document.getElementById("forecast");
         forecastDiv.innerHTML = "";
-
+        const forecastError = document.querySelector(".forecastErrorInfo");
+        forecastError.innerText = "";
+    
         if (data && data.forecast && data.forecast.forecastday) {
-          
-          const forecastArea = document.createElement("div");
-          const location = data.location.name;
-          forecastArea.innerHTML = `<strong>${location}</strong>`;
-          forecastDiv.appendChild(forecastArea);
-          data.forecast.forecastday.forEach((day) => {
-            const date = new Date(day.date).toDateString();
-            const condition = day.day.condition.text;
-            const temp = day.day.avgtemp_f;
+            const forecastStrong = document.createElement("strong");
+            forecastStrong.classList.add("forecastInfo");
+            forecastStrong.innerText = `${data.location.name}`;
+            forecastDiv.appendChild(forecastStrong);
             forecastDiv.style.backgroundColor = "#f0f0f0";
             forecastDiv.style.border = "1px solid #1f2635";
             forecastDiv.style.borderRadius = "10px";
             forecastDiv.style.boxShadow = "5px 5px 5px #3d4961";
-            const forecastItem = document.createElement("div");
-            forecastItem.innerHTML = `<strong>${date}</strong>: ${condition}, ${temp}°F`;
-            forecastDiv.appendChild(forecastItem);
-          });
+            forecastDiv.style.display = "flex";
+            
+            data.forecast.forecastday.forEach((day) => {
+                const date = new Date(day.date).toDateString();
+                const condition = day.day.condition.text;
+                const temp = day.day.avgtemp_f;
+                const forecastItem = document.createElement("p");
+                forecastItem.innerText = `${date}: ${condition}, ${temp}°F`;
+                forecastDiv.appendChild(forecastItem);
+            });
+    
         } else {
-          forecastDiv.innerHTML = "No forecast data available.";
+            forecastDiv.style.display = "none";
+            forecastError.innerText = 'Error: Invalid ZIP';
         }
-      }
+    }
+          
     </script>
   </body>
 </html>
