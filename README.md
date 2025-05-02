@@ -1,4 +1,5 @@
-# Hardened Weather Forecast App - _Secure Development & Testing Final_
+# Hardened Weather Forecast App
+## _Secure Development & Testing Final_
 
 Using [WeatherAPI](https://www.weatherapi.com/) users can input a valid ZIP code and receive a 3-Day weather forecast. 
 
