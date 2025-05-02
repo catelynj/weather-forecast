@@ -13,3 +13,8 @@ node_modules/.bin/
 .idea/
 .vscode/
 .cache/
+script.test.js
+
+#Cypress
+cypress/
+cypress.config.js

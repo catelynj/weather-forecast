@@ -10,9 +10,8 @@ function sanitize(input) {
     .replace(/&/g, "&amp;");
 }
 
-document
-  .getElementById("zipcodeForm")
-  .addEventListener("submit", function (event) {
+document.getElementById("zipcodeForm").addEventListener("submit", function (event)
+  {
     event.preventDefault();
     const zipcode = document.getElementById("zipcode").value;
     const cleanzip = sanitize(zipcode);
@@ -29,10 +28,6 @@ async function getWeatherForecast(zipcode) {
     console.error("Error fetching weather data:", error);
     const apiError = document.querySelector(".forecastErrorInfo");
     apiError.innerText = "Error fetching weather data. Try again later";
-
-    const forecastDiv = document.getElementById("forecast");
-    forecastDiv.style.display = "none";
-    forecastDiv.innerHTML = "";
   }
 }
 
