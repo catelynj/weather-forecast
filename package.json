@@ -1,0 +1,26 @@
+{
+  "name": "weather-forecast",
+  "version": "1.0.0",
+  "description": "Static Code Test Tool: LeapFix SAST Scan VS Code Extension\r Results: \r No detectable vulnerabilites within index.html",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catelynj/weather-forecast.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/catelynj/weather-forecast/issues"
+  },
+  "homepage": "https://github.com/catelynj/weather-forecast#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}

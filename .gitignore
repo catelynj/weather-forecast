@@ -1,10 +1,15 @@
-.trunk
-*out
-*logs
-*actions
-*notifications
-*tools
-plugins
-user_trunk.yaml
-user.yaml
-tmp
+# Node.js
+node_modules/
+npm-debug.log
+.yarn/
+
+# dotenv
+.env
+
+# Browser cache
+node_modules/.bin/
+
+# IDE and editor files
+.idea/
+.vscode/
+.cache/
