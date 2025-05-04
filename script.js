@@ -15,6 +15,7 @@ document.getElementById("zipcodeForm").addEventListener("submit", function (even
     event.preventDefault();
     const zipcode = document.getElementById("zipcode").value;
     const cleanzip = sanitize(zipcode);
+
     getWeatherForecast(cleanzip);
   });
 
@@ -49,7 +50,7 @@ function displayForecast(data) {
     forecastDiv.style.display = "flex";
 
     data.forecast.forecastday.forEach((day) => {
-      const date = new Date(day.date).toDateString();
+      const date = day.date; // Changed to day.date to avoid an off by one issue! Not as pretty but works as intended
       const condition = day.day.condition.text;
       const temp = day.day.avgtemp_f;
       const forecastItem = document.createElement("p");
